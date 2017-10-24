@@ -20,7 +20,9 @@ uis.directive('uiSelectHeaderGroupSelectable', ['$timeout', function($timeout) {
         if ($select.multiple && $select.groups) {
           return $element.querySelectorAll('.ui-select-choices-group-label');
         } else {
-          console.error('Use uiSelectHeaderGroupSelectable with no multiple uiSelect or without groupBy');
+          if(isEnabled()){
+            console.error('Use uiSelectHeaderGroupSelectable with no multiple uiSelect or without groupBy');
+          }
           return [];
         }
       }
