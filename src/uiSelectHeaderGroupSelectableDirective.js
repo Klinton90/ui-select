@@ -29,25 +29,27 @@ uis.directive('uiSelectHeaderGroupSelectable', ['$timeout', function($timeout) {
 
       function enableClick() {
         if (isEnabled()) {
-          angular.forEach(getElements(), function(e) {
-            var element = angular.element(e);
+          $timeout(function() {
+            angular.forEach(getElements(), function (e) {
+              var element = angular.element(e);
 
-            // Check the onClick event is not already listen
-            if (!element.hasClass('ui-select-header-group-selectable')) {
-              element.addClass('ui-select-header-group-selectable');
+              // Check the onClick event is not already listen
+              if (!element.hasClass('ui-select-header-group-selectable')) {
+                element.addClass('ui-select-header-group-selectable');
 
-              element.on('click', function () {
-                if (isEnabled()) {
-                  var group = $select.findGroupByName(element.text(), true);
+                element.on('click', function () {
+                  if (isEnabled()) {
+                    var group = $select.findGroupByName(element.text(), true);
 
-                  angular.forEach(group.items, function(item) {
-                    $timeout(function() {
-                      $select.select(item, false, ' ');
+                    angular.forEach(group.items, function (item) {
+                      $timeout(function () {
+                        $select.select(item, false, ' ');
+                      });
                     });
-                  });
-                }
-              });
-            }
+                  }
+                });
+              }
+            });
           });
         }
       }
@@ -71,9 +73,8 @@ uis.directive('uiSelectHeaderGroupSelectable', ['$timeout', function($timeout) {
         }
       });
 
-      $scope.$watch('$select.groups', enableClick);
       $scope.$watch(function() {
-        return $select.selected && $select.selected.length ? $select.selected.length : -1;
+        return $select.groups && $select.groups.length ? $select.groups.length : -1;
       }, enableClick);
     }
   };
