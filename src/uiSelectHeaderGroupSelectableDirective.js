@@ -34,7 +34,7 @@ uis.directive('uiSelectHeaderGroupSelectable', ['$timeout', function($timeout) {
               var element = angular.element(e);
 
               // Check the onClick event is not already listen
-              if (!element.hasClass('ui-select-header-group-selectable')) {
+              if (element.text() && !element.hasClass('ui-select-header-group-selectable')) {
                 element.addClass('ui-select-header-group-selectable');
 
                 element.on('click', function () {
